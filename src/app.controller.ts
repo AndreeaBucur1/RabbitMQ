@@ -17,31 +17,10 @@ export class AppController {
 		})
 	}
 
-	@Post("/send-message-to-fanout-exchange")
-	public sendMessageToFanoutExchange(@Body('messages') messages: any[]) {
+	@Post("/send-messages-to-exchange/:exchangeType")
+	public sendMessagesToExchange(@Param('exchangeType') exchangeType: string, @Body('messages') messages: any[]) {
 		messages.forEach((message) => {
-			this.rabbitMqService.sendMessageToFanoutExchange(message);
-		})
-	}
-
-	@Post("/send-message-to-direct-exchange")
-	public sendMessageToDirectExchange(@Body('messages') messages: any[]) {
-		messages.forEach((message) => {
-			this.rabbitMqService.sendMessageToDirectExchange(message);
-		})
-	}
-
-	@Post("/send-message-to-topic-exchange")
-	public sendMessageToTopicExchange(@Body('messages') messages: any[]) {
-		messages.forEach((message) => {
-			this.rabbitMqService.sendMessageToTopicExchange(message);
-		})
-	}
-
-	@Post("/send-message-to-headers-exchange")
-	public sendMessageToHeadersExchange(@Body('messages') messages: any[]) {
-		messages.forEach((message) => {
-			this.rabbitMqService.sendMessageToHeadersExchange(message);
+			this.rabbitMqService.sendMessageToExchange(exchangeType, message);
 		})
 	}
 	
